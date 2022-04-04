@@ -17,7 +17,6 @@ class ComposePager<Key, Model>(
         loading = true
         onLoadUpdated(true)
         val result = onRequest(currentKey)
-        loading = false
         val data = result.getOrElse {
             onError(it)
             onLoadUpdated(false)
@@ -25,6 +24,7 @@ class ComposePager<Key, Model>(
         }
         currentKey = onGetNextKey(data)
         onSuccess(data, currentKey)
+        loading = false
         onLoadUpdated(false)
     }
 
