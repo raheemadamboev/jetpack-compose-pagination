@@ -16,8 +16,8 @@ class MainViewModel : ViewModel() {
 
     private val pager = ComposePager(
         initialKey = 0,
-        onLoadUpdated = {
-            state = state.copy(loading = true)
+        onLoadUpdated = { loading ->
+            state = state.copy(loading = loading)
         },
         onRequest = { key ->
             repository.getItems(key, 20)
@@ -30,7 +30,7 @@ class MainViewModel : ViewModel() {
         },
         onSuccess = { data, newKey ->
             state = state.copy(
-                data = data,
+                data = state.data + data,
                 endReached = data.isEmpty(),
                 page = newKey
             )
